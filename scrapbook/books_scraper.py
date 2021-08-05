@@ -14,6 +14,8 @@ for row in categories_table.findAll("li"):
     if link != "https://books.toscrape.com/catalogue/category/books_1/index.html":
         category_links.append(link)
 
+""" Gère les pages suivantes dans les categories """
+
 for category_link in category_links:
     catalogue_page_urls = [category_link]
     category_name = category_link.split("/")[-2]
@@ -56,6 +58,7 @@ for category_link in category_links:
 
 
     """créé un nouveau fichier fichier du nom de la categorie"""
+    
     script_dir = os.path.dirname(os.path.abspath(__file__))
     dest_dir = os.path.join(script_dir, category_name)
     try:
@@ -65,7 +68,8 @@ for category_link in category_links:
     path = os.path.join(dest_dir, category_name)
 
 
-     # ecrit le csv par categories
+    """ecrit le csv par categories"""
+    
     with open(f"{category_name}/{category_name}.csv", "w") as f:
         f.write("product_page_url,title,image_url,review_rating,product_description,"
                 "universal_product_code,price_including_taxes,price_excluding_taxes,category,availability\n")
@@ -80,6 +84,7 @@ for category_link in category_links:
                 f'"{url}","{name}","{image}","{rating}","{description}","{upc}","{pricetax}","{pricenotax}","{cat}",'
                 f'"{available}"\n'
             )
+            
     """telecharge les images des livres"""
 
     for image, title in zip(books_general_info["image_urls"], books_general_info["titles"]):
