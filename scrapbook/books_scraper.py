@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 from get_book_info import append_books_details, append_book_general_info
+
 website = "https://books.toscrape.com/index.html"
 soup = BeautifulSoup(requests.get(website).content, "html.parser")
 
@@ -54,7 +55,7 @@ for category_link in category_links:
         append_books_details(books_table, books_details)
 
 
-    # créé un nouveau fichier fichier du nom de la categorie
+    """créé un nouveau fichier fichier du nom de la categorie"""
     script_dir = os.path.dirname(os.path.abspath(__file__))
     dest_dir = os.path.join(script_dir, category_name)
     try:
@@ -79,16 +80,10 @@ for category_link in category_links:
                 f'"{url}","{name}","{image}","{rating}","{description}","{upc}","{pricetax}","{pricenotax}","{cat}",'
                 f'"{available}"\n'
             )
-    #telecharge les images des livres
+    """telecharge les images des livres"""
 
     for image, title in zip(books_general_info["image_urls"], books_general_info["titles"]):
         with open(f"{category_name}/{title}", "wb") as f:
             response = requests.get(image)
             f.write(response.content)
-
-
-
-#TODO nouveau repository
-#TODO readme correct
-#TODO tester full code
 

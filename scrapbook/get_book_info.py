@@ -12,6 +12,7 @@ def append_book_general_info(books_table, books_general_info):
 
         row_name = row.h3.a["title"]
         name = row_name.replace('"', '-')
+        name = name.replace('/', '-')
         books_general_info['titles'].append(name)
 
         image = "https://books.toscrape.com/" + row.img["src"][12:]
